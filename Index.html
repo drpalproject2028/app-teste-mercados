@@ -12,6 +12,24 @@ table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
 th { background: #1a73e8; color: white; }
 button { padding: 5px 10px; margin: 2px; cursor: pointer; }
+.panel {
+  margin-top: 16px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+}
+textarea {
+  width: 100%;
+  min-height: 90px;
+  margin-top: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+.hint {
+  color: #444;
+  margin: 8px 0 0;
+}
 </style>
 </head>
 <body>
@@ -31,6 +49,20 @@ button { padding: 5px 10px; margin: 2px; cursor: pointer; }
     </thead>
     <tbody></tbody>
   </table>
+
+  <div class="panel">
+    <h3>Assistente PAL (Claude vs ChatGPT)</h3>
+    <p>
+      Copia o prompt abaixo para o teu PAL e cola aqui a resposta bruta para análise.
+    </p>
+    <textarea id="palPrompt" readonly>Camilo Castelo Branco avô família genealogia matança porco seminário</textarea>
+    <button onclick="copyPrompt()">Copiar prompt</button>
+    <button onclick="fillFallbackMessage()">Gerar mensagem de fallback</button>
+    <textarea id="fallbackMessage" placeholder="A mensagem corrigida aparece aqui..."></textarea>
+    <p class="hint">
+      Nota: se o endpoint responder 401 Unauthorized e as actions internas falharem com ClientResponseError, usa o fallback e pede a resposta bruta do PAL.
+    </p>
+  </div>
 </div>
 
 <script>
@@ -59,6 +91,19 @@ async function loadData() {
 
 function simularCompra(nome, preco) {
   alert('Simulação: compraste 10€ de ' + nome + ' a ' + preco + '€');
+}
+
+function copyPrompt() {
+  const prompt = document.getElementById('palPrompt');
+  prompt.select();
+  prompt.setSelectionRange(0, 99999);
+  document.execCommand('copy');
+  alert('Prompt copiado!');
+}
+
+function fillFallbackMessage() {
+  const output = document.getElementById('fallbackMessage');
+  output.value = `Tentei fazer isto, mas encontrei duas limitações neste ambiente:\n\n1) A abertura direta do endpoint devolve 401 Unauthorized, por isso não consigo ler o resultado no browser.\n2) As actions internas para pesquisar conversas (getTime, searchConversations e semanticSearch) falharam com ClientResponseError.\n\nO passo mais fiável agora é executar este prompt no teu PAL:\n\nCamilo Castelo Branco avô família genealogia matança porco seminário\n\nSe me enviares aqui a resposta bruta, eu faço o cruzamento e a análise em seguida.`;
 }
 </script>
 </body>
