@@ -23,7 +23,7 @@ button { padding: 5px 10px; margin: 2px; cursor: pointer; }
       <tr>
         <th>#</th>
         <th>Nome</th>
-        <th>Preço (€)</th>
+        <th>Preço (USD)</th>
         <th>Variação 24h (%)</th>
         <th>P/E Simulado</th>
         <th>Simular Compra</th>
@@ -31,34 +31,45 @@ button { padding: 5px 10px; margin: 2px; cursor: pointer; }
     </thead>
     <tbody></tbody>
   </table>
+
 </div>
 
 <script>
 async function loadData() {
   const tbody = document.querySelector("#cryptoTable tbody");
   tbody.innerHTML = '<tr><td colspan="6">A carregar...</td></tr>';
+  try {
+    const response = await fetch('https://api.coincap.io/v2/assets?limit=100');
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    const payload = await response.json();
+    const data = payload?.data ?? [];
 
-  const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false');
-  const data = await response.json();
-  
-  tbody.innerHTML = '';
-  data.forEach((coin, index) => {
-    const peSimulado = (Math.random() * 50 + 5).toFixed(2); // Simulação P/E
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${index+1}</td>
-      <td>${coin.name}</td>
-      <td>${coin.current_price.toFixed(2)}</td>
-      <td>${coin.price_change_percentage_24h.toFixed(2)}</td>
-      <td>${peSimulado}</td>
-      <td><button onclick="simularCompra('${coin.name}', ${coin.current_price.toFixed(2)})">Comprar 10€</button></td>
-    `;
-    tbody.appendChild(row);
-  });
+    tbody.innerHTML = '';
+    data.forEach((coin, index) => {
+      const price = Number(coin.priceUsd || 0);
+      const dailyChange = Number(coin.changePercent24Hr || 0);
+      const peSimulado = (Math.random() * 50 + 5).toFixed(2); // Simulação P/E
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${index+1}</td>
+        <td>${coin.name}</td>
+        <td>${price.toFixed(2)}</td>
+        <td>${dailyChange.toFixed(2)}</td>
+        <td>${peSimulado}</td>
+        <td><button onclick="simularCompra('${coin.name}', ${price.toFixed(2)})">Comprar 10$</button></td>
+      `;
+      tbody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Erro ao carregar dados de mercado:', error);
+    tbody.innerHTML = '<tr><td colspan="6">Falha ao carregar mercado (endpoint indisponível ou bloqueado).</td></tr>';
+  }
 }
 
 function simularCompra(nome, preco) {
-  alert('Simulação: compraste 10€ de ' + nome + ' a ' + preco + '€');
+  alert('Simulação: compraste 10$ de ' + nome + ' a ' + preco + '$');
 }
 </script>
 </body>
