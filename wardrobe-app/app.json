@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Wardrobe AI",
+    "slug": "wardrobe-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "wardrobeai",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0A0A0A"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.wardrobe.ai",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Precisamos da câmara para fotografar as tuas peças de roupa.",
+        "NSPhotoLibraryUsageDescription": "Precisamos da galeria para selecionar fotos das tuas roupas.",
+        "NSPhotoLibraryAddUsageDescription": "Para guardar fotos na tua galeria."
+      }
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Precisamos da câmara para fotografar as tuas roupas."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Precisamos da galeria para adicionar roupas ao teu guarda-roupa.",
+          "cameraPermission": "Precisamos da câmara para fotografar as tuas roupas."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Precisamos de acesso às tuas fotos."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
