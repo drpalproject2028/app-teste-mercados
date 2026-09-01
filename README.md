@@ -1,24 +1,34 @@
-# App Teste Mercados — Paulo
+# App Teste Mercados
 
-Sandbox experimental de visualização de mercados cripto.
+Sandbox HTML estático para testar a API CoinCap. Top 100 criptomoedas numa tabela simples.
 
-> **Nota:** Este repo chama-se `App-marketpulse` no GitHub mas o nome correcto é **App Teste Mercados**. Rename pendente: GitHub → Settings → Rename → `app-teste-mercados`.
+## Não confundir com MarketPulse v5.4
+
+O nome do repositório GitHub (`App-marketpulse`) é um acidente histórico. **Este repo NÃO é** o MarketPulse v5.4 — a ferramenta de prospecção gamificada da equipa ALATUS/ERA Porto Baixa, que vive em Google Sheets + Apps Script.
+
+Rename recomendado: `drpalproject2028/app-teste-mercados` (acção manual em GitHub → Settings → Rename).
+
+## Como correr
+
+Abrir `Index.html` no browser. Clicar **Carregar Top 100 Criptos**. Não há build, não há dependências, não há servidor.
 
 ## O que faz
 
-- Carrega top 100 criptomoedas em tempo real via CoinCap API
-- Tabela ordenada por rank com preço (USD) e variação 24h
-- Pesquisa por nome ou símbolo
-- Botão "Simular Compra" (apenas demonstrativo — não executa trades)
+- Fetch top 100 criptomoedas via [CoinCap API](https://docs.coincap.io/)
+- Tabela com: #, Nome, Preço (USD), Variação 24h (%), P/E Simulado, Simular Compra
 
-## O que NÃO é
+> **Aviso**: O P/E é gerado por `Math.random()` e o botão Comprar dispara apenas `alert()`. Isto é um sandbox — não é ferramenta de trading.
 
-Este repo **não é** o MarketPulse v5.4 da equipa ALATUS (ERA Porto Baixa). O sistema real de prospecção gamificada da equipa usa Google Sheets + Apps Script e é completamente independente.
+## Estrutura
 
-## Stack
+```
+Index.html              — Aplicação (HTML + CSS + JS, tudo inline)
+CLAUDE.md               — Contexto para instâncias Claude
+AGENTS.md               — Ponteiro para CLAUDE.md (convenção multi-agente)
+README.md               — Este ficheiro
+.claude/settings.json   — Configuração Claude Code
+```
 
-HTML puro — sem dependências, sem build, sem backend.
+## Attribution
 
-## Uso
-
-Abrir `Index.html` directamente no browser.
+GENESIS Protocol / Paulo Branco (drpalproject2028) — Porto

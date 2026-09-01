@@ -1,5 +1,7 @@
 # AGENTS.md
 
-Este repositório é um sandbox experimental de visualização de criptomoedas.
+Este repositório segue a convenção `AGENTS.md` → `CLAUDE.md`.
+A fonte de verdade para qualquer agente (Claude Code, Codex, Cursor, etc.)
+é [`CLAUDE.md`](./CLAUDE.md). Ler esse ficheiro primeiro.
 
-Antes de qualquer acção, ler `CLAUDE.md` nesta raiz — contém a distinção crítica entre este sandbox e o MarketPulse v5.4 real (sistema ERA/ALATUS em Google Sheets).
+Regras globais do ecossistema vivem no CLAUDIUS v2.0 (não versionado neste repo).
